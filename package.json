@@ -2,12 +2,12 @@
   "name": "futurepull.heroku",
   "version": "0.0.0",
   "description": "futurepull.heroku",
-  "main": "index.js",
+  "main": "app.js",
   "engines": {
     "node": "7"
   },
   "scripts": {
-    "start": "node index",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,12 +15,18 @@
     "url": "git+https://github.com/LightSpeedC/futurepull.heroku.git"
   },
   "keywords": [
-    "heroku", "futurepull", "future"
+    "heroku",
+    "futurepull",
+    "future"
   ],
   "author": "LightSpeedC",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/LightSpeedC/futurepull.heroku/issues"
   },
-  "homepage": "https://github.com/LightSpeedC/futurepull.heroku#readme"
+  "homepage": "https://github.com/LightSpeedC/futurepull.heroku#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "serve-index": "^1.8.0"
+  }
 }
