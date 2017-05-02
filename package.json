@@ -26,7 +26,10 @@
   },
   "homepage": "https://github.com/LightSpeedC/futurepull.heroku#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "serve-index": "^1.8.0"
+    "regenerator-runtime": "^0.10.5",
+    "serve-index": "^1.8.0",
+    "socket.io": "^1.7.3"
   }
 }

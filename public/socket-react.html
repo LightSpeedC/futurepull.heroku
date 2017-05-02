@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>Socket.IO chat</title>
+		<style>
+			* { margin: 0; padding: 0; box-sizing: border-box; }
+			body { font: 13px Helvetica, Arial; }
+			.form-class { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+			.form-class input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+			.form-class button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+			.messages-class { list-style-type: none; margin: 0; padding: 0; }
+			.messages-class li { padding: 5px 10px; }
+			.messages-class li:nth-child(odd) { background: #eee; }
+		</style>
+		<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+		<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.min.js"></script>
+		<script src="regenerator-runtime/runtime.js"></script>
+	</head>
+	<body>
+		<div id="content">content</div>
+	</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/babel">
+// <script>
+	const socket = io();
+	const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+	const CHAT_MESSAGE = 'chat-message';
+
+	class Form1 extends React.Component {
+		constructor(props, context) {
+			super(props, context);
+			this.state = {value: '', messages: []};
+			this.onSendMessage = this.onSendMessage.bind(this);
+			this.onChangeInput = this.onChangeInput.bind(this);
+			this.onKeyPressInput = this.onKeyPressInput.bind(this);
+		}
+		componentDidMount() {
+			socket.on(CHAT_MESSAGE, msg => {
+				const messages = this.state.messages;
+				messages.push(msg);
+				if (messages.length > 10) messages.shift();
+				this.setState({messages});
+			});
+		}
+		componentWillUnmount() {
+			socket.off(CHAT_MESSAGE);
+		}
+		onSendMessage() {
+			socket.emit(CHAT_MESSAGE, this.state.value);
+			this.setState({value: ''});
+			return false;
+		}
+		onChangeInput(ev) {
+			this.setState({value: ev.target.value});
+		}
+		onKeyPressInput(ev) {
+			const code = ev.keyCode || ev.charCode || ev.which;
+			if (code === 13) this.onSendMessage();
+		}
+		render() {
+			return <div>
+				<ul className="messages-class">
+					{this.state.messages.map(x => <li key={x}>{x}</li>)}
+				</ul>
+				<div className="form-class">
+					<input type="text" autocomplete="off" autofocus
+						value={this.state.value}
+						onChange={this.onChangeInput}
+						onKeyPress={this.onKeyPressInput} />
+					<button onClick={this.onSendMessage}>Send</button>
+				</div>
+			</div>;
+		}
+	}
+
+	ReactDOM.render(<Form1 />, content);
+
+</script>
+
+</html>

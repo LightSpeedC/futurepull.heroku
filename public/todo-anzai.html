@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://s3-ap-northeast-1.amazonaws.com/ryomo.anzai.myfirstbucket.jp/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title></title>
+    <script type="text/javascript">
+
+      //TODOリストに項目を追加
+      function AddTodo() {
+
+        // li要素の作成
+        var newAnchor = document.createElement("a");
+        var newTxt = document.createTextNode(document.getElementById("tbAddTodo").value);
+        newAnchor.appendChild(newTxt);
+        var checkBox = document.createElement("input");
+        checkBox.type = 'checkBox';
+        var newLi = document.createElement("li");
+        newLi.appendChild(checkBox);
+        newLi.appendChild(newAnchor);
+
+        // li要素の追加
+        document.getElementById('todoList').appendChild(newLi);
+
+        // TextBoxを空にする
+        document.getElementById("tbAddTodo").value = '';
+      }
+
+      // TODOリストから項目を削除
+      function DelTodo() {
+        window.alert('DelTodoが実行されました');
+      }
+    </script>
+  </head>
+  <body>
+    <div class="" style="height:50px;">
+      <u><b>やることリスト管理</b></u>
+    </div>
+    <div class="">
+      <label for="">タスク</label>
+      <input type="textbox" name="tbAddTodo" id="tbAddTodo" value="">
+      <input type="button" name="btnAddTodo" value="追加" onclick="AddTodo()">
+    </div>
+    <div class="">
+      <ul id="todoList" style="list-style-type:none;">
+      </ul>
+    </div>
+    <div class="">
+      <input type="button" name="btnDelTodo" value="チェックされているタスクを削除" onclick="DelTodo()">
+    </div>
+  
+
+</body></html>
